@@ -418,6 +418,14 @@
         .gallery { gap: 18px; grid-template-columns: 1fr; }
         .photo { border-width: 6px; }
         .photo:nth-child(n) { margin-top: 0; transform: none; }
+        .photos:not(.is-visible) .section-heading,
+        .photos:not(.is-visible) .photo,
+        .video-moment:not(.is-visible) .section-heading,
+        .video-moment:not(.is-visible) .video-frame { clip-path: none; opacity: 1; transform: none; }
+        .photos.is-visible .section-heading,
+        .photos.is-visible .photo,
+        .video-moment.is-visible .section-heading,
+        .video-moment.is-visible .video-frame { animation: none; }
         .video-moment { padding-bottom: 64px; padding-top: 64px; }
         .video-gallery { gap: 18px; grid-template-columns: 1fr; margin: 0 auto; max-width: 100%; }
         .video-frame { max-height: 540px; }
