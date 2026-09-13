@@ -398,6 +398,12 @@
       @media (max-width: 700px) {
         .hero, section { padding-left: 7vw; padding-right: 7vw; }
         section { padding-bottom: 82px; padding-top: 82px; }
+        .opening { padding: 16px; }
+        .envelope { min-height: 285px; padding: 42px 22px 32px; }
+        .envelope h1 { font-size: clamp(38px, 12vw, 54px); }
+        .hero { min-height: 88svh; padding-bottom: 54px; padding-top: 54px; }
+        .hero h2 { margin-bottom: 34px; }
+        .hero-copy > p { font-size: 15px; line-height: 1.55; }
         .section-heading, .letter { display: block; }
         .section-heading p { margin-top: 21px; }
         .future-heading { display: block; }
@@ -406,9 +412,7 @@
         .photo { border-width: 6px; }
         .photo:nth-child(odd) { margin-top: 30px; }
         .photo:nth-child(even) { margin-top: 0; }
-        .video-gallery { gap: 24px; grid-template-columns: 1fr; margin: 0 auto; max-width: 360px; }
-        .play-mark { font-size: 14px; height: 43px; width: 43px; }
-        .video-placeholder span { font-size: 8px; letter-spacing: .06em; }
+        .video-moment { display: none; }
         .letter-card { margin-top: 42px; padding-left: 26px; }
         .future-grid { grid-template-columns: 1fr; }
         .future-item, .future-item + .future-item { border-bottom: 1px solid var(--line); border-right: 0; padding: 24px 0; }
@@ -735,28 +739,30 @@
         frame.classList.add("has-image");
       });
 
-      const videoGallery = document.querySelector("#video-gallery");
-      anniversaryVideos.forEach((source, index) => {
-        const frame = document.createElement("div");
-        frame.className = source === "assets/new video 1.mp4" ? "video-frame landscape" : "video-frame";
-        const video = document.createElement("video");
-        video.controls = true;
-        video.preload = "auto";
-        video.playsInline = true;
-        video.muted = false;
-        video.volume = 1;
-        video.setAttribute("aria-label", `Наше відео ${index + 1}`);
-        const videoSource = document.createElement("source");
-        videoSource.src = source;
-        videoSource.type = "video/mp4";
-        video.appendChild(videoSource);
-        video.addEventListener("play", pauseBackgroundMusic);
-        video.addEventListener("pause", resumeBackgroundMusic);
-        video.addEventListener("ended", resumeBackgroundMusic);
-        video.load();
-        frame.appendChild(video);
-        videoGallery.appendChild(frame);
-      });
+      if (window.matchMedia("(min-width: 701px)").matches) {
+        const videoGallery = document.querySelector("#video-gallery");
+        anniversaryVideos.forEach((source, index) => {
+          const frame = document.createElement("div");
+          frame.className = source === "assets/new video 1.mp4" ? "video-frame landscape" : "video-frame";
+          const video = document.createElement("video");
+          video.controls = true;
+          video.preload = "auto";
+          video.playsInline = true;
+          video.muted = false;
+          video.volume = 1;
+          video.setAttribute("aria-label", `Наше відео ${index + 1}`);
+          const videoSource = document.createElement("source");
+          videoSource.src = source;
+          videoSource.type = "video/mp4";
+          video.appendChild(videoSource);
+          video.addEventListener("play", pauseBackgroundMusic);
+          video.addEventListener("pause", resumeBackgroundMusic);
+          video.addEventListener("ended", resumeBackgroundMusic);
+          video.load();
+          frame.appendChild(video);
+          videoGallery.appendChild(frame);
+        });
+      }
     </script>
   </body>
 </html>
