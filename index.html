@@ -329,6 +329,9 @@
       .secret-hint::before { content: "←"; display: inline-block; font: 22px/1 "Manrope", sans-serif; margin-right: 6px; vertical-align: -2px; }
       .secret-message { color: var(--rose-deep); font: italic 25px/1.35 "Playfair Display", serif; margin: 24px auto 0; max-width: 480px; opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
       .secret-message.visible { opacity: 1; transform: translateY(0); }
+      .finale-actions { align-items: center; display: flex; flex-direction: column; }
+      .finale-actions .secret-action { margin-left: 0; }
+      .finale-actions .restart { margin-top: 18px; }
       .music-button { align-items: center; background: var(--rose); border: 0; border-radius: 100px; box-shadow: 0 10px 24px rgba(118, 38, 63, .2); color: white; cursor: pointer; display: flex; font: 500 11px "DM Mono", monospace; gap: 9px; letter-spacing: .08em; margin: 8px auto 0; padding: 14px 20px; text-transform: uppercase; transition: transform .25s ease, box-shadow .25s ease; }
       .music-button:hover, .music-button.playing { box-shadow: 0 14px 30px rgba(118, 38, 63, .3); transform: translateY(-3px); }
       .music-note { color: var(--rose); font: 500 clamp(24px, 4vw, 40px)/1.1 "Playfair Display", serif; margin: 34px auto 0; text-align: center; }
@@ -589,12 +592,12 @@
           <div class="eyebrow">і це тільки початок</div>
           <h3>З нашою<br /><em>річницею!</em></h3>
           <p>Нехай попереду буде ще безліч приводів сказати: «Я тебе кохаю».</p>
-          <div>
-            <button class="restart" id="restart" type="button">відкрити ще раз</button>
+          <div class="finale-actions">
             <span class="secret-action">
               <button class="secret-heart" id="secret-heart" type="button" aria-label="Відкрити маленьке зізнання" title="Ще одне зізнання">♡</button>
               <span class="secret-hint">натисни мене</span>
             </span>
+            <button class="restart" id="restart" type="button">відкрити ще раз</button>
           </div>
           <p class="secret-message" id="secret-message" aria-live="polite">Я б знову обрав тебе — у кожному житті й кожному дні.</p>
         </div>
