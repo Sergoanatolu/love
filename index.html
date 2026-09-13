@@ -449,6 +449,7 @@
         .ambient-heart { color: rgba(165, 60, 93, .58); font-size: 30px; }
         .ambient-heart:nth-child(2n) { color: rgba(199, 155, 91, .62); font-size: 25px; }
         .ambient-heart:nth-child(3n) { font-size: 38px; }
+        .ambient-heart { animation-duration: 5.5s; }
       }
 
       @media (max-width: 420px) {
@@ -666,7 +667,7 @@
         observer.disconnect();
       }, { threshold: .2 });
 
-      const ambientHeartCount = window.matchMedia("(max-width: 700px)").matches ? 26 : 16;
+      const ambientHeartCount = window.matchMedia("(max-width: 700px)").matches ? 40 : 16;
       for (let i = 0; i < ambientHeartCount; i += 1) {
         const heart = document.createElement("span");
         heart.className = "ambient-heart";
