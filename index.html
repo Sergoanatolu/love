@@ -412,7 +412,9 @@
         .photo { border-width: 6px; }
         .photo:nth-child(odd) { margin-top: 30px; }
         .photo:nth-child(even) { margin-top: 0; }
-        .video-moment { display: none; }
+        .video-gallery { gap: 24px; grid-template-columns: 1fr; margin: 0 auto; max-width: 360px; }
+        .video-frame { max-height: 560px; }
+        .video-frame.landscape { max-height: none; }
         .letter-card { margin-top: 42px; padding-left: 26px; }
         .future-grid { grid-template-columns: 1fr; }
         .future-item, .future-item + .future-item { border-bottom: 1px solid var(--line); border-right: 0; padding: 24px 0; }
@@ -739,30 +741,28 @@
         frame.classList.add("has-image");
       });
 
-      if (window.matchMedia("(min-width: 701px)").matches) {
-        const videoGallery = document.querySelector("#video-gallery");
-        anniversaryVideos.forEach((source, index) => {
-          const frame = document.createElement("div");
-          frame.className = source === "assets/new video 1.mp4" ? "video-frame landscape" : "video-frame";
-          const video = document.createElement("video");
-          video.controls = true;
-          video.preload = "auto";
-          video.playsInline = true;
-          video.muted = false;
-          video.volume = 1;
-          video.setAttribute("aria-label", `Наше відео ${index + 1}`);
-          const videoSource = document.createElement("source");
-          videoSource.src = source;
-          videoSource.type = "video/mp4";
-          video.appendChild(videoSource);
-          video.addEventListener("play", pauseBackgroundMusic);
-          video.addEventListener("pause", resumeBackgroundMusic);
-          video.addEventListener("ended", resumeBackgroundMusic);
-          video.load();
-          frame.appendChild(video);
-          videoGallery.appendChild(frame);
-        });
-      }
+      const videoGallery = document.querySelector("#video-gallery");
+      anniversaryVideos.forEach((source, index) => {
+        const frame = document.createElement("div");
+        frame.className = source === "assets/new video 1.mp4" ? "video-frame landscape" : "video-frame";
+        const video = document.createElement("video");
+        video.controls = true;
+        video.preload = "metadata";
+        video.playsInline = true;
+        video.muted = false;
+        video.volume = 1;
+        video.setAttribute("aria-label", `Наше відео ${index + 1}`);
+        const videoSource = document.createElement("source");
+        videoSource.src = source;
+        videoSource.type = "video/mp4";
+        video.appendChild(videoSource);
+        video.addEventListener("play", pauseBackgroundMusic);
+        video.addEventListener("pause", resumeBackgroundMusic);
+        video.addEventListener("ended", resumeBackgroundMusic);
+        video.load();
+        frame.appendChild(video);
+        videoGallery.appendChild(frame);
+      });
     </script>
   </body>
 </html>
