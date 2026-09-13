@@ -340,9 +340,18 @@
       .music-arrow { color: var(--rose); font: 25px/1 "Manrope", sans-serif; margin-top: 8px; }
 
       .hearts { inset: 0; pointer-events: none; position: fixed; z-index: 19; }
+      .site-heart {
+        color: rgba(165, 60, 93, .34);
+        font: 28px/1 "Playfair Display", serif;
+        pointer-events: none;
+        position: absolute;
+        z-index: 0;
+      }
+      .site-heart:nth-child(2n) { color: rgba(199, 155, 91, .42); font-size: 22px; }
+      .site-heart:nth-child(3n) { color: rgba(165, 60, 93, .24); font-size: 36px; }
       .floating-heart { animation: rise 1.7s ease-out forwards; color: var(--rose); font-size: 24px; position: absolute; }
       .ambient-heart {
-        animation: ambient-rise 9s linear infinite;
+        animation: ambient-rise 12s linear infinite;
         bottom: -40px;
         color: rgba(165, 60, 93, .42);
         font-size: 27px;
@@ -449,10 +458,9 @@
         .finale { min-height: 78svh; padding: 58px 20px; }
         .finale h3 { font-size: clamp(50px, 15vw, 70px); }
         .secret-action { margin-left: 0; margin-top: 18px; }
-        .ambient-heart { color: rgba(165, 60, 93, .58); font-size: 30px; }
+        .ambient-heart { animation-duration: 10s; color: rgba(165, 60, 93, .58); font-size: 30px; }
         .ambient-heart:nth-child(2n) { color: rgba(199, 155, 91, .62); font-size: 25px; }
         .ambient-heart:nth-child(3n) { font-size: 38px; }
-        .ambient-heart { animation-duration: 5.5s; }
       }
 
       @media (max-width: 420px) {
@@ -639,6 +647,19 @@
       const musicLabel = musicButton.querySelector(".music-label");
       let backgroundWasPlaying = false;
 
+      document.querySelectorAll("main > section").forEach((section, sectionIndex) => {
+        section.style.position = "relative";
+        for (let heartIndex = 0; heartIndex < 3; heartIndex += 1) {
+          const heart = document.createElement("span");
+          heart.className = "site-heart";
+          heart.textContent = heartIndex % 3 === 0 ? "♥" : "♡";
+          heart.style.left = `${8 + ((sectionIndex * 23 + heartIndex * 31) % 82)}%`;
+          heart.style.top = `${12 + ((sectionIndex * 17 + heartIndex * 26) % 72)}%`;
+          heart.style.transform = `rotate(${-14 + ((sectionIndex + heartIndex) * 11) % 28}deg)`;
+          section.appendChild(heart);
+        }
+      });
+
       function pauseBackgroundMusic() {
         backgroundWasPlaying = !backgroundSong.paused;
         backgroundSong.pause();
@@ -672,13 +693,14 @@
         observer.disconnect();
       }, { threshold: .2 });
 
-      const ambientHeartCount = window.matchMedia("(max-width: 700px)").matches ? 40 : 16;
+      const ambientHeartCount = window.matchMedia("(max-width: 700px)").matches ? 8 : 5;
       for (let i = 0; i < ambientHeartCount; i += 1) {
         const heart = document.createElement("span");
         heart.className = "ambient-heart";
         heart.textContent = i % 3 === 0 ? "♥" : "♡";
         heart.style.left = `${4 + (i * 7) % 92}%`;
-        heart.style.animationDelay = `${i * -.7}s`;
+        heart.style.bottom = `${-10 + (i * 13) % 45}%`;
+        heart.style.animationDelay = `${i * -1.4}s`;
         hearts.appendChild(heart);
       }
 
@@ -696,8 +718,6 @@
           heart.addEventListener("animationend", () => heart.remove());
         }
       }
-
-      setInterval(burstAmbientHearts, 4800);
 
       function burstHearts() {
         for (let i = 0; i < 16; i += 1) {
